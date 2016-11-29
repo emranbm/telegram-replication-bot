@@ -11,6 +11,19 @@
 |
 */
 
+use Telegram\Bot\Api;
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/setWebhook', function () {
+    $telegram = new Api('249465277:AAHEzjRDK66dcpRBCodjnDxj8MbsWzl6Cik');
+    $response = $telegram->setWebhook(['url' => 'https://nasim-trbot/249465277:AAHEzjRDK66dcpRBCodjnDxj8MbsWzl6Cik/webhook']);
+    return $response;
+});
+
+Route::post('/249465277:AAHEzjRDK66dcpRBCodjnDxj8MbsWzl6Cik/webhook', function (Request $request) {
+    error_log($request->all());
 });
