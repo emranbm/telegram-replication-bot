@@ -15,7 +15,7 @@ class TelegramController extends Controller
         $update = Telegram::commandsHandler(true);
 
         $myfile = fopen("logfile.txt", "a+") or die("Unable to open file!");
-        $txt = $update . '\r\n';
+        $txt = '$update' . '<br/>';
         fwrite($myfile, $txt);
         fclose($myfile);
 
@@ -26,7 +26,7 @@ class TelegramController extends Controller
         else
             $telegram->sendMessage([
                 'chat_id' => $update->get('message')->get('chat')->get('id'),
-                'text' => 'سلام. من زندم! ولی نه اونقدری که جوابتو بدم!'
+                'text' => 'ﺱﻼﻣ. ﻢﻧ ﺰﻧﺪﻣ! ﻮﻟی ﻦﻫ ﺍﻮﻨﻗﺩﺭی کﻩ ﺝﻭﺎﺒﺗﻭ ﺏﺪﻣ!'
             ]);
 
         return 'ok';
@@ -43,15 +43,17 @@ class TelegramController extends Controller
         } else if ($message->get('photo') != null) {
             // it's a photo message
             $photos = $message->get('photo');
-            $hqPhoto = $photos[count($photos) - 1];
+            $hqPhoto = ($photos->getMessage());
+
+            $myfile = fopen("logfile.txt", "a+") or die("Unable to open file!");
+            $txt = 'salam: ' . $hqPhoto . '<br />';
+            fwrite($myfile, $txt);
+            fclose($myfile);
+            return;
+
             $resp = $telegram->getFile([
                 'file_id' => $hqPhoto->get('file_id')
             ]);
-
-            $myfile = fopen("logfile.txt", "a+") or die("Unable to open file!");
-            $txt = $resp . '\r\n';
-            fwrite($myfile, $txt);
-            fclose($myfile);
         }
 
     }
