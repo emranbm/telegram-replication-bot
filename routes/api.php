@@ -20,12 +20,12 @@ Route::get('/user', function (Request $request) {
 Route::post('/AAHEzjRDK66dcpRBCodjnDxj8MbsWzl6Cik/webhook', 'TelegramController@hook');
 
 Route::get('/last', function () {
-    $fp = fopen("emranfile.txt", "rb");
+    $fp = fopen("logfile.txt", "rb");
     fseek($fp, 0, SEEK_END);
     $size = ftell($fp);
     fclose($fp);
 
-    $myfile = fopen("emranfile.txt", "r") or die("Unable to open file!");
+    $myfile = fopen("logfile.txt", "r") or die("Unable to open file!");
     $last = fread($myfile, $size);
     fclose($myfile);
 
