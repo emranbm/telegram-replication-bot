@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use Telegram\Bot\Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,24 +17,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::post('/AAHEzjRDK66dcpRBCodjnDxj8MbsWzl6Cik/webhook', function () {
-
-    $update = Telegram::commandsHandler(true);
-
-    $myfile = fopen("emranfile.txt", "w") or die("Unable to open file!");
-    $txt = $update;
-    fwrite($myfile, $txt);
-    fclose($myfile);
-
-    $telegram = new Api('249465277:AAHEzjRDK66dcpRBCodjnDxj8MbsWzl6Cik');
-
-    $telegram->sendMessage([
-        'chat_id' => $update->get('message')->get('chat')->get('id'),
-        'text' => 'سلام. من زندم. ولی نه اونقدری که جوابتو بدم!'
-    ]);
-
-    return 'ok';
-});
+Route::post('/AAHEzjRDK66dcpRBCodjnDxj8MbsWzl6Cik/webhook', 'TelegramController@hook');
 
 Route::get('/last', function () {
     $fp = fopen("emranfile.txt", "rb");
