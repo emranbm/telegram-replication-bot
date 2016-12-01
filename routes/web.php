@@ -28,9 +28,3 @@ Route::get('/setWebhook', function () {
     $response = $telegram->setWebhook(['url' => 'https://nasim-trbot.elenoon.ir/api/AAHEzjRDK66dcpRBCodjnDxj8MbsWzl6Cik/webhook']);
     return $response;
 });
-
-Route::get('/get',function(){
-    $myfile = fopen("emranfile.txt", "w") or die("Unable to open file!");
-    fread($myfile, 20);//filesize("emranfile.txt"));
-    fclose($myfile);
-});

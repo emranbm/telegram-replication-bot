@@ -14,8 +14,8 @@ class TelegramController extends Controller
     {
         $update = Telegram::commandsHandler(true);
 
-        $myfile = fopen("emranfile.txt", "w") or die("Unable to open file!");
-        $txt = $update;
+        $myfile = fopen("logfile.txt", "a+") or die("Unable to open file!");
+        $txt = $update . '\r\n';
         fwrite($myfile, $txt);
         fclose($myfile);
 
@@ -34,11 +34,6 @@ class TelegramController extends Controller
 
     private function handleChannelMessage($message)
     {
-//        $myfile = fopen("emranfile2.txt", "w") or die("Unable to open file!");
-//        $txt = $message;
-//        fwrite($myfile, $txt);
-//        fclose($myfile);
-
         $telegram = new Api('249465277:AAHEzjRDK66dcpRBCodjnDxj8MbsWzl6Cik');
         $channel = $message->get('chat')->get('username');
 
@@ -47,7 +42,16 @@ class TelegramController extends Controller
             $this->postRequest($this->getChannelKey($channel), $message->get('text'));
         } else if ($message->get('photo') != null) {
             // it's a photo message
-//            $telegram->getFile()
+            $photos = $message->get('photo');
+            $hqPhoto = $photos[count($photos) - 1];
+            $resp = $telegram->getFile([
+                'file_id' => $hqPhoto->get('file_id')
+            ]);
+
+            $myfile = fopen("logfile.txt", "a+") or die("Unable to open file!");
+            $txt = $resp . '\r\n';
+            fwrite($myfile, $txt);
+            fclose($myfile);
         }
 
     }
