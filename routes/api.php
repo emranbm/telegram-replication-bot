@@ -29,5 +29,5 @@ Route::get('/last', function () {
     $last = fread($myfile, $size);
     fclose($myfile);
 
-    dd($last);
+    return $last;
 });
