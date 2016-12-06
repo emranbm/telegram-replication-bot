@@ -26,7 +26,7 @@ class TelegramController extends Controller
         else
             $telegram->sendMessage([
                 'chat_id' => $update->get('message')->get('chat')->get('id'),
-                'text' => 'سلام. من زندم! ولی نه اونقدری که جوابتو بدم!' . '\n' . $update->get('message')->get('chat')->get('id')
+                'text' => 'سلام. من زندم! ولی نه اونقدری که جوابتو بدم!' . "\n" . $update->get('message')->get('chat')->get('id')
             ]);
 
         return 'ok';
